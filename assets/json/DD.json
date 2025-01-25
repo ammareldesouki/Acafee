@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "name": "Cappuccino",
+    "image": "assets/images/Black Coffee.png",
+    "category": "Hot Drinks"
+  },
+  {
+    "id": "2",
+    "name": "Latte",
+    "image": "assets/images/Cold Coffee.png",
+    "category": "Hot Drinks"
+  },
+  {
+    "id": "3",
+    "name": "Iced Coffee",
+    "image": "assets/images/Espresso.png",
+    "category": "Cold Drinks"
+  },
+  {
+    "id": "3",
+    "name": "Iced Coffee",
+    "image": "assets/images/Latte.png",
+    "category": "Cold Drinks"
+  },
+  {
+    "id": "1",
+    "name": "Cappuccino",
+    "image": "assets/images/Black Coffee.png",
+    "category": "Hot Drinks"
+  },
+  {
+    "id": "2",
+    "name": "Latte",
+    "image": "assets/images/Cold Coffee.png",
+    "category": "Hot Drinks"
+  },
+  {
+    "id": "3",
+    "name": "Iced Coffee",
+    "image": "assets/images/Espresso.png",
+    "category": "Cold Drinks"
+  },
+  {
+    "id": "3",
+    "name": "Iced Coffee",
+    "image": "assets/images/Latte.png",
+    "category": "Cold Drinks"
+  },
+  {
+    "id": "1",
+    "name": "Cappuccino",
+    "image": "assets/images/Black Coffee.png",
+    "category": "Hot Drinks"
+  },
+  {
+    "id": "2",
+    "name": "Latte",
+    "image": "assets/images/Cold Coffee.png",
+    "category": "Hot Drinks"
+  },
+  {
+    "id": "3",
+    "name": "Iced Coffee",
+    "image": "assets/images/Espresso.png",
+    "category": "Cold Drinks"
+  },
+  {
+    "id": "3",
+    "name": "Iced Coffee",
+    "image": "assets/images/Latte.png",
+    "category": "Cold Drinks"
+  }
+]

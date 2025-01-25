@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "157563217298",
+    "project_id": "acafe-aa3f6",
+    "storage_bucket": "acafe-aa3f6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157563217298:android:88c8ac8136031e005acd4b",
+        "android_client_info": {
+          "package_name": "com.cafe.ammarcafe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnnfEVJvxquvnwaZXHEmEurOtO9Be63og"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
