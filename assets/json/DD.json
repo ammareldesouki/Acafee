@@ -1,74 +1,71 @@
 [
+
+
+
+
   {
     "id": "1",
-    "name": "Cappuccino",
-    "image": "assets/images/Black Coffee.png",
-    "category": "Hot Drinks"
+    "name": "Amricano",
+
+    "price": 4.5,
+    "imageUrl": "assets/images/amricano.png",
+    "description": "A classic coffee drink with espresso, steamed milk, and foam.",
+    "category": "Hot Coffee"
   },
   {
     "id": "2",
     "name": "Latte",
-    "image": "assets/images/Cold Coffee.png",
-    "category": "Hot Drinks"
+    "price": 5.0,
+    "imageUrl": "assets/images/Latte.png",
+    "description": "Espresso with steamed milk and a small amount of foam.",
+    "category": "Hot Coffee"
+
   },
   {
     "id": "3",
-    "name": "Iced Coffee",
-    "image": "assets/images/Espresso.png",
-    "category": "Cold Drinks"
+    "name": "Mocha",
+    "price": 5.0,
+    "imageUrl": "assets/images/Espresso.png",
+    "description": "A strong shot of coffee made by forcing hot water through finely-ground coffee beans.",
+    "category": "Hot Coffee"
+
   },
   {
-    "id": "3",
-    "name": "Iced Coffee",
-    "image": "assets/images/Latte.png",
-    "category": "Cold Drinks"
-  },
-  {
-    "id": "1",
+    "id": "4",
     "name": "Cappuccino",
-    "image": "assets/images/Black Coffee.png",
-    "category": "Hot Drinks"
+
+    "price": 4.5,
+    "imageUrl": "assets/images/Cappuccino.png",
+    "description": "A classic coffee drink with espresso, steamed milk, and foam.",
+    "category": "Hot Coffee"
   },
   {
-    "id": "2",
-    "name": "Latte",
-    "image": "assets/images/Cold Coffee.png",
-    "category": "Hot Drinks"
+    "id": "5",
+    "name": "Ice latte",
+    "price": 5.5,
+    "imageUrl": "assets/images/ice latte.png",
+    "description": "Espresso with steamed milk, chocolate, and whipped cream.",
+    "category": "Ice Coffee"
+
+  },
+
+
+  {
+    "id": "6",
+    "name": "Carmel Mechato",
+    "price": 7.5,
+    "imageUrl": "assets/images/Carmel Mechato.png",
+    "description": "Espresso with steamed milk, chocolate, and whipped cream.",
+    "category": "Ice Coffee"
+
   },
   {
-    "id": "3",
-    "name": "Iced Coffee",
-    "image": "assets/images/Espresso.png",
-    "category": "Cold Drinks"
-  },
-  {
-    "id": "3",
-    "name": "Iced Coffee",
-    "image": "assets/images/Latte.png",
-    "category": "Cold Drinks"
-  },
-  {
-    "id": "1",
-    "name": "Cappuccino",
-    "image": "assets/images/Black Coffee.png",
-    "category": "Hot Drinks"
-  },
-  {
-    "id": "2",
-    "name": "Latte",
-    "image": "assets/images/Cold Coffee.png",
-    "category": "Hot Drinks"
-  },
-  {
-    "id": "3",
-    "name": "Iced Coffee",
-    "image": "assets/images/Espresso.png",
-    "category": "Cold Drinks"
-  },
-  {
-    "id": "3",
-    "name": "Iced Coffee",
-    "image": "assets/images/Latte.png",
-    "category": "Cold Drinks"
+    "id": "8",
+    "name": "Chemicx",
+    "price": 6.0,
+    "imageUrl": "assets/images/chemicx.png",
+    "description": "Chilled coffee served with ice and optionally milk or sugar.",
+    "category": "Speciality Coffee"
+
   }
 ]

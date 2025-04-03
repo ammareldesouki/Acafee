@@ -1,25 +1,40 @@
 import 'dart:convert';
-import 'package:ammarcafe/widget/botton_bar.dart';
-import 'package:ammarcafe/widget/nav_bar.dart';
+import 'package:ammarcafe/models/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ammarcafe/contest/colors.dart';
-import 'package:ammarcafe/widget/item_widget.dart';
+import 'package:flutter/services.dart';
+import 'package:ammarcafe/models/item_class.dart'; // Import your Item class
+import 'package:ammarcafe/widget/botton_bar.dart'; // Your bottom bar widget
+import 'package:ammarcafe/widget/nav_bar.dart'; // Your navigation bar widget
+import 'package:ammarcafe/contest/colors.dart'; // Your color constants
+import 'package:ammarcafe/widget/item_card.dart';
+import 'package:provider/provider.dart'; // Your item card widget
 
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-  List<dynamic> Drinks = [];
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  Future<List<Item>> loadItems() async {
+    // Load the JSON file
+    final String jsonString =
+        await rootBundle.loadString('assets/json/DD.json');
+    // Decode the JSON string into a List of dynamic objects
+    final List<dynamic> jsonList = json.decode(jsonString);
+    // Convert the List of dynamic objects into a List of Item objects
+    return jsonList.map((json) => Item.fromJson(json)).toList();
+  }
+
+  late Future<List<Item>> itemsFuture; // Future to load items
   late TabController _tabController;
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
-    ReadData();
     super.initState();
+    _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    itemsFuture = loadItems(); // Load items from JSON
   }
 
   @override
@@ -28,27 +43,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  Future<void> ReadData() async {
-    try {
-      String data = await DefaultAssetBundle.of(context).loadString("assets/json/DD.json");
-      setState(() {
-        Drinks = json.decode(data);
-      });
-    } catch (e) {
-      print("Error loading JSON: $e");
-    }
-  }
-
-  List<dynamic> _filterDrinks(String category) {
-    return Drinks.where((drink) => drink['category'] == category).toList();
+  // Filter items by category
+  List<Item> _filterItems(List<Item> items, String category) {
+    return items.where((item) => item.category == category).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      drawer: NavBar(), // Your navigation drawer
       appBar: AppBar(
-
         backgroundColor: AppColors.primaryVariant,
         actions: [
           Icon(CupertinoIcons.bell_solid, color: Colors.white),
@@ -118,24 +122,40 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ),
             ),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildDrinkGrid(_filterDrinks("Hot Drinks")),
-                  _buildDrinkGrid(_filterDrinks("Cold Drinks")),
-                  _buildDrinkGrid(_filterDrinks("Hot Drinks")), // Adjust category as needed
-                ],
+              child: FutureBuilder<List<Item>>(
+                future: itemsFuture, // Load items from JSON
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text("Error: ${snapshot.error}"));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text("No items found."));
+                  } else {
+                    final items = snapshot.data!;
+                    return TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildDrinkGrid(_filterItems(items, "Hot Coffee")),
+                        _buildDrinkGrid(_filterItems(items, "Ice Coffee")),
+                        _buildDrinkGrid(
+                            _filterItems(items, "Speciality Coffee")),
+                      ],
+                    );
+                  }
+                },
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar:BottomNavBar() ,
+      bottomNavigationBar: BottomNavBar(), // Your bottom navigation bar
     );
   }
 
-  Widget _buildDrinkGrid(List<dynamic> drinks) {
-    if (drinks.isEmpty) {
+  // Build a grid of drinks
+  Widget _buildDrinkGrid(List<Item> items) {
+    if (items.isEmpty) {
       return Center(
         child: Text("No drinks found in this category."),
       );
@@ -145,17 +165,24 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       padding: EdgeInsets.all(10),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+      
+        mainAxisExtent: 300,
         childAspectRatio: 0.75,
       ),
-      itemCount: drinks.length,
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        var drink = drinks[index];
         return ItemCard(
-          name: drink['name'],
-          image: drink['image'],
-          category: drink['category'],
+          item: items[index],
+          onAddToCart: () {
+    Provider.of<CartModel>(context, listen: false).addToCart(items[index]);
+
+    // Show a SnackBar notification
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Added to Cart'),
+        duration: Duration(seconds: 2),
+      ),
+    );          },
         );
       },
     );
