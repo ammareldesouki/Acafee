@@ -5,6 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 
 class NavBar extends StatelessWidget{
+  const NavBar({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class NavBar extends StatelessWidget{
 
             await FirebaseAuth.instance.signOut();
             Navigator.of(context).pushNamedAndRemoveUntil("Login",(rout)=>false);
-          }, icon:Icon( Icons.exit_to_app)),
+          }, icon:const Icon( Icons.exit_to_app)),
           
           
 

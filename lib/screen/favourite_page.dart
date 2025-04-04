@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 
 class FavouritePage extends StatelessWidget{
+  const FavouritePage({super.key});
+
 
 
 
@@ -21,16 +23,16 @@ class FavouritePage extends StatelessWidget{
       drawer: NavBar(),
 
     appBar: AppBar(
-      title: Center(child: Text(" you favourie drinks")),
+      title: const Center(child: Text(" you favourie drinks")),
 
     backgroundColor: AppColors.primaryVariant,
-    actions: [
+    actions: const [
     Icon(CupertinoIcons.bell_solid, color: Colors.white),
     ],
     ),
       body: SafeArea(child: ListView(
 
-        children: [
+        children: const [
 
 
 
@@ -41,7 +43,7 @@ class FavouritePage extends StatelessWidget{
 
       )),
 
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 

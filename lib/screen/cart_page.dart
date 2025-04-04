@@ -5,13 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:ammarcafe/models/cart.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cartModel = Provider.of<CartModel>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        title: const Text('Cart'),
         backgroundColor: AppColors.primaryVariant,
       ),
       body: ListView.builder(
@@ -25,12 +27,12 @@ class CartScreen extends StatelessWidget {
             subtitle: Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.remove),
+                  icon: const Icon(Icons.remove),
                   onPressed: () {
                     cartModel.decrementQuantity(itemOncart.item);
                   },
                 ),    IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {
                     cartModel.incrementQuantity(itemOncart.item);
                   },
@@ -54,11 +56,20 @@ class CartScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 
               children: [
+
+
+                
                 Row(
+
+
+
+
+
+                  
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                 
-                    Text(
+                    const Text(
                       'Subtotal: ',
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -72,7 +83,7 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                 
-                    Text(
+                    const Text(
                       'Subtotal: ',
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -86,7 +97,7 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                 
-                    Text(
+                    const Text(
                       'Subtotal: ',
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -102,12 +113,12 @@ class CartScreen extends StatelessWidget {
                 
                 
                 },
-                  padding: EdgeInsets.all(18),
+                  padding: const EdgeInsets.all(18),
                 
                   shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   color: Colors.red,
                   textColor: AppColors.textLight,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Go to Check out "),
@@ -127,8 +138,11 @@ class CartScreen extends StatelessWidget {
         ),
       
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
 
     );
   }
 }
+
+
+

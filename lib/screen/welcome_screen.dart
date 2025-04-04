@@ -42,13 +42,13 @@ class WelcomeScreen extends StatelessWidget{
             },
             child: Ink(
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 15,horizontal:50 ),
+                padding: const EdgeInsets.symmetric(vertical: 15,horizontal:50 ),
                  decoration: BoxDecoration(
                    color: AppColors.buttonBackground,
                    borderRadius: BorderRadius.circular(10),
 
                  ),
-                child: Container(child: Text("Get Start",
+                child: Container(child: const Text("Get Start",
                   style: TextStyle(color: Colors.white,fontSize: 22,letterSpacing: 1,fontWeight: FontWeight.bold),),),
 
 

@@ -11,6 +11,8 @@ import 'package:ammarcafe/contest/colors.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
   
   @override
   _SignupPageState createState() => _SignupPageState();
@@ -60,7 +62,7 @@ Future<void> _pickImage() async {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Hello, \nCreate a new account",
                       style: TextStyle(
                         color: AppColors.primaryColor,
@@ -71,7 +73,7 @@ Future<void> _pickImage() async {
                    
                       
                       
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image(
@@ -87,7 +89,7 @@ Future<void> _pickImage() async {
                               ),
                             ],
                           ),
-                          SizedBox(height: 50),
+                          const SizedBox(height: 50),
                 // Profile Image Upload Container
 Center(
   child: GestureDetector(
@@ -105,28 +107,28 @@ Center(
                 image: FileImage(_profileImage!),
                 fit: BoxFit.cover,
               )
-            : DecorationImage(
+            : const DecorationImage(
                 image: AssetImage('assets/images/default_profile.png'),
                 fit: BoxFit.cover,
               ),
       ),
       child: _profileImage == null
-          ? Icon(Icons.camera_alt, color: Colors.white, size: 40)
+          ? const Icon(Icons.camera_alt, color: Colors.white, size: 40)
           : null, // No icon if image is selected
     ),
   ),
 ),
-SizedBox(height: 20),
+const SizedBox(height: 20),
 
                           // First Name Field
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                            decoration: const BoxDecoration(
                               color: AppColors.primaryVariant,
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
                             child: TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "First Name",
                               ),
@@ -141,17 +143,17 @@ SizedBox(height: 20),
                               },
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                 
                           // Last Name Field
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                            decoration: const BoxDecoration(
                               color: AppColors.primaryVariant,
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
                             child: TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Last Name",
                               ),
@@ -166,17 +168,17 @@ SizedBox(height: 20),
                               },
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                 
                           // Password Field
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                            decoration: const BoxDecoration(
                               color: AppColors.primaryVariant,
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
                             child: TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Enter Your Email",
                               ),
@@ -192,18 +194,18 @@ SizedBox(height: 20),
                               },
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                 
                           // Password Field
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                            decoration: const BoxDecoration(
                               color: AppColors.primaryVariant,
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
                             child: TextFormField(
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Password",
                               ),
@@ -222,18 +224,18 @@ SizedBox(height: 20),
                                 }
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                 
                           // Re-enter Password Field
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                            decoration: const BoxDecoration(
                               color: AppColors.primaryVariant,
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
                             child: TextFormField(
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Re-enter Password",
                               ),
@@ -248,7 +250,7 @@ SizedBox(height: 20),
                               },
                             ),
                           ),
-                              SizedBox(height: 20,),
+                              const SizedBox(height: 20,),
 
 
 
@@ -265,45 +267,7 @@ SizedBox(height: 20),
       }
 
       // Create user in Firebase Auth
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: Email.text,
-        password: Password.text,
-      );
-
-      // Save user data in Firestore
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(credential.user!.uid)
-          .set({
-            "firstName": "User's First Name",
-            "lastName": "User's Last Name",
-            "email": Email.text,
-            "profileImage": imageUrl ?? "",
-          });
-
-      // Navigate to Login
-      Navigator.of(context).pushReplacementNamed("Login");
-
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            title: "Error",
-            desc: "Weak password",
-            animType: AnimType.rightSlide,
-            borderSide: BorderSide(color: Colors.red, width: 2),
-        ).show();
-      } else if (e.code == 'email-already-in-use') {
-        AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            title: "Error",
-            desc: "The account already exists for that email",
-            animType: AnimType.rightSlide,
-            borderSide: BorderSide(color: Colors.red, width: 2),
-        ).show();
-      }
+    
     } catch (e) {
       print(e);
     }
@@ -316,7 +280,7 @@ SizedBox(height: 20),
                       ),
                       color: AppColors.primaryColor,
 
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Sign Up",
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -334,7 +298,7 @@ SizedBox(height: 20),
                            Navigator.of(context).pushNamed("Login");
                 
                          },
-                         child: Text(
+                         child: const Text(
                            "Already have an account? Login",
                            style: TextStyle(color: AppColors.primaryVariant),
                          ),

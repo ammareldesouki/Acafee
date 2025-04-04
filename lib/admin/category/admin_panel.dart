@@ -1,10 +1,12 @@
-import 'package:ammarcafe/admin/category/category_page.dart';
+import 'package:ammarcafe/admin/category/category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:ammarcafe/widget/botton_bar.dart';
 
 class AdminPanelScreen extends StatefulWidget {
+  const AdminPanelScreen({super.key});
+
   @override
   _AdminPanelScreenState createState() => _AdminPanelScreenState();
 }
@@ -31,16 +33,16 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Admin Panel")),
+      appBar: AppBar(title: const Text("Admin Panel")),
       body: Column(
         children: [
-          Center(child: Text("Welcome to the Admin Panel")),
-          SizedBox(height: 20),
+          const Center(child: Text("Welcome to the Admin Panel")),
+          const SizedBox(height: 20),
           Expanded(
             child: isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2, mainAxisExtent: 150),
                     itemCount: data.length,
                     itemBuilder: (context, i) {
@@ -58,14 +60,14 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> {
                         },
                         child: Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Column(
                               children: [
                                 Image.asset("assets/images/folder.png", height: 80),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   "${data[i]["name"]}",
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -82,7 +84,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> {
         backgroundColor: Colors.blue,
         children: [
           SpeedDialChild(
-            child: Icon(Icons.category, color: Colors.white),
+            child: const Icon(Icons.category, color: Colors.white),
             backgroundColor: Colors.green,
             label: "Add Category",
             onTap: () {
@@ -92,7 +94,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> {
 
         ],
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

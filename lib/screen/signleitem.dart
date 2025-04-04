@@ -8,7 +8,7 @@ import 'package:ammarcafe/models/cart.dart';
 class SingleItemScreen extends StatefulWidget {
   final Item item;
 
-  const SingleItemScreen({
+  const SingleItemScreen({super.key, 
     required this.item,
   });
 
@@ -36,7 +36,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
   void _addToCart(BuildContext context) {
     Provider.of<CartModel>(context, listen: false).addToCart(widget.item);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Added to Cart'),
         duration: Duration(seconds: 2),
       ),
@@ -57,26 +57,26 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(widget.item.imageUrl, height: 200, width: 200),
-            SizedBox(height: 10),
-            Text(widget.item.name, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            SizedBox(height: 5),
+            const SizedBox(height: 10),
+            Text(widget.item.name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 5),
             Text(widget.item.description, textAlign: TextAlign.center),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Icon(Icons.remove),
+                  icon: const Icon(Icons.remove),
                   onPressed: _decreaseQuantity,
                 ),
-                Text('$quantity', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text('$quantity', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: _increaseQuantity,
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             
             Center(
               child: Row(
@@ -85,29 +85,29 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                   ElevatedButton.icon(
                     onPressed: () => _addToCart(context),
                     
-                    icon: Icon(Icons.shopping_cart,color: Colors.white,),
-                    label: Text('Add to Cart', style: TextStyle(color: Colors.white),),
+                    icon: const Icon(Icons.shopping_cart,color: Colors.white,),
+                    label: const Text('Add to Cart', style: TextStyle(color: Colors.white),),
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      textStyle: TextStyle(fontSize: 18),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      textStyle: const TextStyle(fontSize: 18),
                       backgroundColor: AppColors.primaryColor,
-                      minimumSize: Size(100, 50),
+                      minimumSize: const Size(100, 50),
                     ),
                   ),
                              ElevatedButton.icon(
                          
               
               
-                    icon: Icon(Icons.favorite_border,color: Colors.white,),
-                                label: Text('Like !',style: TextStyle(color: Colors.white,)),
+                    icon: const Icon(Icons.favorite_border,color: Colors.white,),
+                                label: const Text('Like !',style: TextStyle(color: Colors.white,)),
               
               onPressed: () {
                 // Handle favorite button action
               },
                           style: ElevatedButton.styleFrom(
-                      textStyle: TextStyle(fontSize: 18),
+                      textStyle: const TextStyle(fontSize: 18),
                       backgroundColor: AppColors.primaryColor,
-                      minimumSize: Size(60, 50),
+                      minimumSize: const Size(60, 50),
                     ),
                         ),
                 ],
@@ -117,7 +117,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

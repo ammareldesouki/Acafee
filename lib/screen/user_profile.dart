@@ -13,7 +13,7 @@ class UserProfilePage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      appBar: AppBar(title: Text("User Profile")),
+      appBar: AppBar(title: const Text("User Profile")),
       body: FutureBuilder<DocumentSnapshot>(
         future:
             FirebaseFirestore.instance.collection("users").doc(user?.uid).get(),
@@ -24,7 +24,7 @@ class UserProfilePage extends StatelessWidget {
                   Navigator.of(context)
                       .restorablePushReplacementNamed("AdminPanel");
                 },
-                child: Text("go to admin panel"));
+                child: const Text("go to admin panel"));
           }
           // Handle loading state
           if (snapshot.connectionState == ConnectionState.waiting) {

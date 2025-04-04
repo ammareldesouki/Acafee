@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -31,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
+      final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
       // Create a new credential
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       body: isLooding
-          ? Center(child: CircularProgressIndicator()) // Show loading indicator
+          ? const Center(child: CircularProgressIndicator()) // Show loading indicator
           : SafeArea(
               child: SingleChildScrollView(
                 child: Container(
@@ -93,13 +95,13 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Hello, \nWelcome Back",
+                        const Text("Hello, \nWelcome Back",
                             style: TextStyle(
                                 color: AppColors.primaryColor, fontSize: 40)),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image(
@@ -113,16 +115,16 @@ class _LoginPageState extends State<LoginPage> {
                                         'assets/icons/socialmedia/facebook.png'))
                               ],
                             ),
-                            SizedBox(height: 50),
+                            const SizedBox(height: 50),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 5),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: AppColors.primaryVariant,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20))),
                               child: TextFormField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Email or Phone number"),
                                 controller: Email,
@@ -139,28 +141,29 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 5),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: AppColors.primaryVariant,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20))),
                               child: TextFormField(
                                 obscureText: true,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Password"),
                                 controller: Password,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty)
+                                  if (value == null || value.isEmpty) {
                                     return "must be non Empty";
+                                  }
                                   return null;
                                 },
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -169,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                                         builder: (context) =>
                                             ForgetPassword()));
                               },
-                              child: Text(
+                              child: const Text(
                                 "Forgot Password?",
                                 style: TextStyle(color: Colors.orange),
                               ),
@@ -205,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                                           desc:
                                               "The account already exists for that email",
                                           animType: AnimType.rightSlide,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 2,
                                           )).show();
@@ -227,27 +230,27 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               },
                               elevation: 0,
-                              padding: EdgeInsets.all(18),
+                              padding: const EdgeInsets.all(18),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               color: AppColors.primaryColor,
-                              child: Center(
+                              child: const Center(
                                   child: Text(
                                 "Login",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               )),
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             MaterialButton(
                               onPressed: () {
                                 signInWithGoogle();
                               },
-                              padding: EdgeInsets.all(18),
+                              padding: const EdgeInsets.all(18),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               color: Colors.red,
                               textColor: Colors.white,
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text("Sign in with Google"),
@@ -264,7 +267,7 @@ class _LoginPageState extends State<LoginPage> {
                               onTap: () {
                                 Navigator.of(context).pushNamed('SignUp');
                               },
-                              child: Text(
+                              child: const Text(
                                 "Create account",
                                 style: TextStyle(
                                     color: AppColors.primaryVariant),

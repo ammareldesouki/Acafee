@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class ItemCard extends StatelessWidget {
   final Item item;
   final VoidCallback onAddToCart;
-  const ItemCard({
+  const ItemCard({super.key, 
     required this.item,
     required this.onAddToCart,
   });
@@ -19,12 +19,12 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 13),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 13),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: AppColors.cardAccent,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: AppColors.cardBackground,
               spreadRadius: 1,
@@ -42,7 +42,7 @@ class ItemCard extends StatelessWidget {
                       builder: (context) => SingleItemScreen(item:item )));
             },
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Image(
                 image: AssetImage(item.imageUrl),
                 width: 120,
@@ -52,21 +52,21 @@ class ItemCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.only(bottom: 8),
             child: Align(
               alignment: Alignment.center,
               child: Column(children: [
                 Text(
                   item.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: AppColors.cardText),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "best Coffe",
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
@@ -74,21 +74,21 @@ class ItemCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 
                 Text(
                   "${item.price}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.white),
                 ),
-                SizedBox(width: 30,),
+                const SizedBox(width: 30,),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(20),
@@ -106,7 +106,7 @@ class ItemCard extends StatelessWidget {
                     //   );
                     //   tt.addToCart(cartItem);
                     // },
-                    icon: Icon(
+                    icon: const Icon(
                       CupertinoIcons.add,
                       size: 20,
                     ),

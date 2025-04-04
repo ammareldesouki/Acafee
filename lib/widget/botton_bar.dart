@@ -20,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HomeScreen(),
     FavouritePage(),
     CartScreen(),
-     UserProfilePage(),
+     const UserProfilePage(),
   ];
   final List<BottomNavigationBarItem> _items = [
     const BottomNavigationBarItem(
