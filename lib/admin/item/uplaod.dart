@@ -6,6 +6,8 @@ import 'package:path_provider/path_provider.dart';
 
 
 class ImagePickerScreen extends StatefulWidget {
+  const ImagePickerScreen({super.key});
+
   @override
   _ImagePickerScreenState createState() => _ImagePickerScreenState();
 }
@@ -33,7 +35,7 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
   Future<void> _saveImage(XFile pickedFile) async {
     // الحصول على المسار المناسب لتخزين الصور
     final directory = await getApplicationDocumentsDirectory();
-    final path = directory.path + '/images/drinks/';
+    final path = '${directory.path}/images/drinks/';
     final imagePath = Directory(path);
 
     if (!await imagePath.exists()) {
@@ -48,17 +50,17 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('رفع صورة')),
+      appBar: AppBar(title: const Text('رفع صورة')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _image != null
                 ? Image.file(_image!, width: 200, height: 200)
-                : Text('لم يتم اختيار صورة بعد'),
+                : const Text('لم يتم اختيار صورة بعد'),
             ElevatedButton(
               onPressed: _pickImage,
-              child: Text('اختيار صورة'),
+              child: const Text('اختيار صورة'),
             ),
           ],
         ),

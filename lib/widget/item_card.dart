@@ -1,5 +1,4 @@
 import 'package:ammarcafe/contest/colors.dart';
-import 'package:ammarcafe/models/cart.dart';
 import 'package:ammarcafe/models/item_class.dart';
 import 'package:ammarcafe/screen/signleitem.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,7 +38,7 @@ class ItemCard extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SingleItemScreen(item:item )));
+                      builder: (context) =>  SingleItemScreen(item:item )));
             },
             child: Container(
               margin: const EdgeInsets.all(10),
@@ -95,17 +94,7 @@ class ItemCard extends StatelessWidget {
                   ),
                   child: IconButton(
                     onPressed: onAddToCart,
-                    // () {
-                    //   CartModel tt = new CartModel();
-                    //   // Create a CartItem object and add it to the cart
-                    //   final cartItem = CartItem(
-                    //     name: item.name,
-                    //     photo: item.imageUrl,
-                    //     price: item.price,
-                    //     quantity: 1, // Default quantity is 1
-                    //   );
-                    //   tt.addToCart(cartItem);
-                    // },
+ 
                     icon: const Icon(
                       CupertinoIcons.add,
                       size: 20,

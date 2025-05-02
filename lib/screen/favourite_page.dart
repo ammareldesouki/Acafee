@@ -1,6 +1,5 @@
 import 'package:ammarcafe/contest/colors.dart';
 import 'package:ammarcafe/widget/botton_bar.dart';
-import 'package:ammarcafe/widget/item_card.dart';
 import 'package:ammarcafe/widget/nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class FavouritePage extends StatelessWidget{
 
     return Scaffold(
 
-      drawer: NavBar(),
+      drawer: const NavBar(),
 
     appBar: AppBar(
       title: const Center(child: Text(" you favourie drinks")),

@@ -59,7 +59,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 backgroundColor: Colors.blue,
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               ),
-              child: Text("Add"),
+              child: const Text("Add"),
             ),
           ],
         ),

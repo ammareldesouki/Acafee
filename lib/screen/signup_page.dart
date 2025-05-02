@@ -1,51 +1,51 @@
 import 'dart:io';
 
-import 'package:ammarcafe/screen/Home.dart';
-import 'package:ammarcafe/screen/login_page.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:ammarcafe/contest/colors.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ammarcafe/control/Authintaction.dart';
+import 'package:ammarcafe/widget/buildTextFieldForm.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
-  
   @override
   _SignupPageState createState() => _SignupPageState();
 }
 
 class _SignupPageState extends State<SignupPage> {
-    File? _profileImage; // To store the selected image
+  File? _profileImage; // To store the selected image
   final ImagePicker _picker = ImagePicker();
-  GlobalKey <FormState> formState= GlobalKey<FormState>();
-  TextEditingController Email =TextEditingController();
-  TextEditingController Password=TextEditingController();
-Future<String?> _uploadProfileImage(File imageFile) async {
-  try {
-    String fileName = 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg';
-    Reference storageReference = FirebaseStorage.instance.ref().child('profile_images/$fileName');
-    
-    await storageReference.putFile(imageFile);
-    return await storageReference.getDownloadURL();
-  } catch (e) {
-    print('Error uploading image: $e');
-    return null;
-  }
-}
+  GlobalKey<FormState> formState = GlobalKey<FormState>();
+  TextEditingController Email = TextEditingController();
+  TextEditingController Password = TextEditingController();
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  late BuildTextFieldForm _buildTextFieldForm;
 
-Future<void> _pickImage() async {
-  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-  if (image != null) {
-    setState(() {
-      _profileImage = File(image.path);
-    });
-  }
-}
+  Future<String?> _uploadProfileImage(File imageFile) async {
+    try {
+      String fileName = 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('profile_images/$fileName');
 
+      await storageReference.putFile(imageFile);
+      return await storageReference.getDownloadURL();
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _profileImage = File(image.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,6 @@ Future<void> _pickImage() async {
       body: SafeArea(
         child: Expanded(
           child: Container(
-
             child: Form(
               key: formState,
               child: Expanded(
@@ -69,217 +68,103 @@ Future<void> _pickImage() async {
                         fontSize: 40,
                       ),
                     ),
-                    
-                   
-                      
-                      
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(
-                                width: 30,
-                                image: AssetImage(
-                                    'assets/icons/socialmedia/google.png'),
-                              ),
-                              SizedBox(width: 40),
-                              Image(
-                                width: 30,
-                                image: AssetImage(
-                                    'assets/icons/socialmedia/facebook.png'),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 50),
-                // Profile Image Upload Container
-Center(
-  child: GestureDetector(
-    onTap: () async {
-      await _pickImage();
-    },
-    child: Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: AppColors.primaryColor, width: 2),
-        image: _profileImage != null
-            ? DecorationImage(
-                image: FileImage(_profileImage!),
-                fit: BoxFit.cover,
-              )
-            : const DecorationImage(
-                image: AssetImage('assets/images/default_profile.png'),
-                fit: BoxFit.cover,
-              ),
-      ),
-      child: _profileImage == null
-          ? const Icon(Icons.camera_alt, color: Colors.white, size: 40)
-          : null, // No icon if image is selected
-    ),
-  ),
-),
-const SizedBox(height: 20),
 
-                          // First Name Field
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryVariant,
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                            ),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "First Name",
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your name';
-                                }
-                                if (value.length < 3) {
-                                  return 'Name must be at least 3 characters long';
-                                }
-                                return null;
-                              },
-                            ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image(
+                          width: 30,
+                          image:
+                              AssetImage('assets/icons/socialmedia/google.png'),
+                        ),
+                        SizedBox(width: 40),
+                        Image(
+                          width: 30,
+                          image: AssetImage(
+                              'assets/icons/socialmedia/facebook.png'),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
+                    // Profile Image Upload Container
+                    Center(
+                      child: GestureDetector(
+                        onTap: () async {
+                          await _pickImage();
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: AppColors.primaryColor, width: 2),
+                            image: _profileImage != null
+                                ? DecorationImage(
+                                    image: FileImage(_profileImage!),
+                                    fit: BoxFit.cover,
+                                  )
+                                : const DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/default_profile.png'),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
-                          const SizedBox(height: 20),
-                
-                          // Last Name Field
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryVariant,
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                            ),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Last Name",
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter Last name';
-                                }
-                                if (value.length < 3) {
-                                  return 'Name must be at least 3 characters long';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                
-                          // Password Field
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryVariant,
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                            ),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Enter Your Email",
-                              ),
-                              controller: Email,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your email';
-                                }
-                                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                                  return 'Please enter a valid email address';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                
-                          // Password Field
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryVariant,
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                            ),
-                            child: TextFormField(
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Password",
-                              ),
-                              controller: Password,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  if (value.length < 6) {
-                                    return 'Password must be at least 6 characters long';
-                                  }
-                                  if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$').hasMatch(value)) {
-                                    return 'Password must contain at least one uppercase letter, one lowercase letter, and one digit';
-                                  }
-                                  return null;
-                                }
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                
-                          // Re-enter Password Field
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryVariant,
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                            ),
-                            child: TextFormField(
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Re-enter Password",
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please re-enter your password';
-                                }
-                                if (value != Password.text) {
-                                  return 'Passwords do not match';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                              const SizedBox(height: 20,),
+                          child: _profileImage == null
+                              ? const Icon(Icons.camera_alt,
+                                  color: Colors.white, size: 40)
+                              : null, // No icon if image is selected
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
 
+                    // First Name Field
+                    BuildTextFieldForm(
+                      controller: firstName,
+                      label: "First Name",
+                    ),
+                    BuildTextFieldForm(
+                      controller: lastName,
+                      label: "Last Name",
+                    ),
+                    BuildTextFieldForm(
+                      controller: Email,
+                      label: "Email",
+                    ),
+                    BuildTextFieldForm(
+                      controller: Password,
+                      label: "Password",
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 20),
 
+                    // Last Name Field
+             
+                    const SizedBox(height: 20),
+
+                    // Password Field
 
                     MaterialButton(
-
                       height: 60,
-                 onPressed: () async {
-  if (formState.currentState!.validate()) {
-    try {
-      // Upload the profile image to Firebase Storage
-      String? imageUrl;
-      if (_profileImage != null) {
-        imageUrl = await _uploadProfileImage(_profileImage!);
-      }
+                      onPressed: () async {
+                        if (formState.currentState!.validate()) {
+                          final AuthService authService = AuthService();
 
-      // Create user in Firebase Auth
-    
-    } catch (e) {
-      print(e);
-    }
-  }
-},
-
+                          // Upload the profile image to Firebase Storage
+                          authService.signUp(
+                              email: Email.text,
+                              password: Password.text,
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              context: context);
+                        }
+                      },
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                       color: AppColors.primaryColor,
-
                       child: const Center(
                         child: Text(
                           "Sign Up",
@@ -287,24 +172,20 @@ const SizedBox(height: 20),
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigate to LoginPage
+                          Navigator.of(context).pushNamed("Login");
+                        },
+                        child: const Text(
+                          "Already have an account? Login",
+                          style: TextStyle(color: AppColors.primaryVariant,fontSize: 20),
+                        ),
+                      ),
+                    ),
 
-                
-                
-
-                
-                       GestureDetector(
-                         onTap: () {
-                           // Navigate to LoginPage
-                           Navigator.of(context).pushNamed("Login");
-                
-                         },
-                         child: const Text(
-                           "Already have an account? Login",
-                           style: TextStyle(color: AppColors.primaryVariant),
-                         ),
-                       ),
-                       
-                    
                 
                   ],
                 ),

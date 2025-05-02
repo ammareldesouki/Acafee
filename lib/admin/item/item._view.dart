@@ -142,7 +142,7 @@ class _ItemPageState extends State<ItemPage> {
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.red),
-                            child: Text("Delete Item",
+                            child: const Text("Delete Item",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ],

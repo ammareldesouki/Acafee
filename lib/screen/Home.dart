@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(), // Your navigation drawer
+      drawer: const NavBar(), // Your navigation drawer
       appBar: AppBar(
         backgroundColor: AppColors.primaryVariant,
         actions: const [

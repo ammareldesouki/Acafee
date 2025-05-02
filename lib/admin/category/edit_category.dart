@@ -22,7 +22,7 @@ class _EditCategoryState extends State<EditCategory> {
 
     if (categoryName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Category name cannot be empty")),
+        const SnackBar(content: Text("Category name cannot be empty")),
       );
     } else {
       try {
@@ -51,11 +51,11 @@ class _EditCategoryState extends State<EditCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Category")),
+      appBar: AppBar(title: const Text("Edit Category")),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: isLooding
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Column(
@@ -63,20 +63,20 @@ class _EditCategoryState extends State<EditCategory> {
                 children: [
                   TextFormField(
                     controller: categoryController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Category Name",
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: editCategory,
-                    child: Text("Edit"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                          const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     ),
+                    child: const Text("Edit"),
                   ),
                 ],
               ),

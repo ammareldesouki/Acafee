@@ -1,11 +1,8 @@
 import 'package:ammarcafe/contest/colors.dart';
-import 'package:ammarcafe/screen/Home.dart';
 import 'package:ammarcafe/screen/forget_password_page.dart';
-import 'package:ammarcafe/screen/signup_page.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ammarcafe/control/Authintaction.dart';
+import 'package:ammarcafe/widget/buildTextFieldForm.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,59 +13,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isLooding = false;
-
-  Future signInWithGoogle() async {
-    setState(() {
-      isLooding = true;
-    });
-
-    try {
-      // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        setState(() {
-          isLooding = false;
-        });
-        return;
-      }
-
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      // Create a new credential
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      // Once signed in, return the UserCredential
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
-      _navigateToHome();
-    } catch (e) {
-      print("Google Sign-In Error: $e");
-      setState(() {
-        isLooding = false;
-      });
-    }
-  }
-
-  void _navigateToHome() {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      if (user.email == "ammareldesouki82@gmail.com") {
-        Navigator.of(context).pushReplacementNamed("AdminPanel");
-      } else {
-        Navigator.of(context).pushReplacementNamed("Home");
-      }
-    }
-    setState(() {
-      isLooding = false;
-    });
-  }
-
+  final AuthService _authService = AuthService();
   GlobalKey<FormState> formState = GlobalKey<FormState>();
+    late BuildTextFieldForm _buildTextFieldForm;
   TextEditingController Email = TextEditingController();
   TextEditingController Password = TextEditingController();
 
@@ -116,52 +63,16 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                             const SizedBox(height: 50),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 5),
-                              decoration: const BoxDecoration(
-                                  color: AppColors.primaryVariant,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Email or Phone number"),
-                                controller: Email,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  if (!RegExp(
-                                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                      .hasMatch(value)) {
-                                    return 'Please enter a valid email address';
-                                  }
-                                  return null;
-                                },
-                              ),
+                            BuildTextFieldForm(
+                              controller: Email,
+                              label: "Email",
                             ),
                             const SizedBox(height: 20),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 5),
-                              decoration: const BoxDecoration(
-                                  color: AppColors.primaryVariant,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: TextFormField(
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Password"),
-                                controller: Password,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "must be non Empty";
-                                  }
-                                  return null;
-                                },
-                              ),
+                            BuildTextFieldForm(
+                              controller: Password,
+                              label: "Password",
+                              obscureText: true,
+                              
                             ),
                             const SizedBox(height: 20),
                             GestureDetector(
@@ -170,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            ForgetPassword()));
+                                            const ForgetPassword()));
                               },
                               child: const Text(
                                 "Forgot Password?",
@@ -184,49 +95,16 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialButton(
                               onPressed: () async {
                                 if (formState.currentState!.validate()) {
+                                  _authService.SignIn(
+                                    email: Email.text,
+                                    password: Password.text,
+                                    context: context,
+                                  );
                                   setState(() {
                                     isLooding = true;
                                   });
 
-                                  try {
-                                    final credential = await FirebaseAuth
-                                        .instance
-                                        .signInWithEmailAndPassword(
-                                      email: Email.text,
-                                      password: Password.text,
-                                    );
-
-                                    if (credential.user!.emailVerified) {
-                                      _navigateToHome();
-                                    } else {
-                                      FirebaseAuth.instance.currentUser!
-                                          .sendEmailVerification();
-                                      AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.error,
-                                          title: "Error",
-                                          desc:
-                                              "The account already exists for that email",
-                                          animType: AnimType.rightSlide,
-                                          borderSide: const BorderSide(
-                                            color: Colors.red,
-                                            width: 2,
-                                          )).show();
-                                      setState(() {
-                                        isLooding = false;
-                                      });
-                                    }
-                                  } on FirebaseAuthException catch (e) {
-                                    setState(() {
-                                      isLooding = false;
-                                    });
-                                    if (e.code == 'user-not-found') {
-                                      print('No user found for that email.');
-                                    } else if (e.code == 'wrong-password') {
-                                      print(
-                                          'Wrong password provided for that user.');
-                                    }
-                                  }
+                               
                                 }
                               },
                               elevation: 0,
@@ -243,7 +121,11 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(height: 30),
                             MaterialButton(
                               onPressed: () {
-                                signInWithGoogle();
+
+                                _authService.signInWithGoogle(context);
+                                  setState(() {
+                                    isLooding = true;
+                                  });
                               },
                               padding: const EdgeInsets.all(18),
                               shape: RoundedRectangleBorder(
@@ -266,6 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                             GestureDetector(
                               onTap: () {
                                 Navigator.of(context).pushNamed('SignUp');
+                                  
                               },
                               child: const Text(
                                 "Create account",

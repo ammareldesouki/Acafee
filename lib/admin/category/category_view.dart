@@ -99,7 +99,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   ).show();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: Text("Delete Category",
+                child: const Text("Delete Category",
                     style: TextStyle(color: Colors.white)),
               ),
               ElevatedButton(

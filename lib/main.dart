@@ -2,6 +2,7 @@ import 'package:ammarcafe/admin/category/add_category.dart';
 import 'package:ammarcafe/admin/category/admin_panel.dart';
 import 'package:ammarcafe/models/cart.dart';
 import 'package:ammarcafe/screen/Home.dart';
+import 'package:ammarcafe/screen/SEE.dart';
 import 'package:ammarcafe/screen/login_page.dart';
 import 'package:ammarcafe/screen/signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,24 +60,25 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: _getHomeScreen(user),
+      //  home: _getHomeScreen(user),
+      home:SingleProduct(),
       routes: {
-        "SignUp": (context) => SignupPage(),
-        "Login": (context) => LoginPage(),
-        "Home": (context) => HomeScreen(),
-        "AdminPanel": (context) => AdminPanelScreen(),
-        "AddCategory": (context) => AddCategoryScreen(),
+        "SignUp": (context) => const SignupPage(),
+        "Login": (context) => const LoginPage(),
+        "Home": (context) => const HomeScreen(),
+        "AdminPanel": (context) => const AdminPanelScreen(),
+        "AddCategory": (context) => const AddCategoryScreen(),
       },
     );
   }
 
   Widget _getHomeScreen(User? user) {
     if (user == null) {
-      return LoginPage();
+      return const LoginPage();
     } else if (user.email == "ammareldesouki82@gmail.com") {
-      return AdminPanelScreen();
+      return const AdminPanelScreen();
     } else {
-      return HomeScreen();
+      return const HomeScreen();
     }
   }
 }

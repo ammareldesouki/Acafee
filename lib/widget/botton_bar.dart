@@ -2,7 +2,6 @@ import 'package:ammarcafe/contest/colors.dart';
 import 'package:ammarcafe/screen/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:ammarcafe/screen/Home.dart';
-import 'package:ammarcafe/screen/login_page.dart';
 import 'package:ammarcafe/screen/cart_page.dart';
 import 'package:ammarcafe/screen/favourite_page.dart';
 
@@ -17,9 +16,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    HomeScreen(),
-    FavouritePage(),
-    CartScreen(),
+    const HomeScreen(),
+    const FavouritePage(),
+    const CartScreen(),
      const UserProfilePage(),
   ];
   final List<BottomNavigationBarItem> _items = [
