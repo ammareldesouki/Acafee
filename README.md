@@ -115,37 +115,6 @@ A modern coffee shop application built with Flutter, featuring both user and adm
 - supabase_flutter: ^2.8.4
 - And more...
 
-## Getting Started 🚀
+![Image](https://github.com/user-attachments/assets/abf7f42f-46cd-445a-a290-ccc1458d39aa)
 
-1. Clone the repository
-```bash
-git clone https://github.com/yourusername/AmmarCafe.git
-```
 
-2. Install dependencies
-```bash
-flutter pub get
-```
-
-3. Configure Firebase
-   - Create a new Firebase project
-   - Add your `google-services.json` (Android) and `GoogleService-Info.plist` (iOS)
-   - Enable Authentication methods (Email/Password and Google Sign-in)
-   - Set up Cloud Firestore
-
-4. Run the app
-```bash
-flutter run
-```
-
-## Contributing 🤝
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License 📄
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact 📧
-
-For any queries or suggestions, please reach out to [your contact information].
