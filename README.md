@@ -2,6 +2,10 @@
 
 A modern coffee shop application built with Flutter, featuring both user and admin interfaces. The app provides a seamless experience for ordering coffee and managing the coffee shop's menu.
 
+
+![Image](https://github.com/user-attachments/assets/abf7f42f-46cd-445a-a290-ccc1458d39aa)
+
+
 ## Features 🌟
 
 ### User Features
@@ -115,6 +119,5 @@ A modern coffee shop application built with Flutter, featuring both user and adm
 - supabase_flutter: ^2.8.4
 - And more...
 
-![Image](https://github.com/user-attachments/assets/abf7f42f-46cd-445a-a290-ccc1458d39aa)
 
 
